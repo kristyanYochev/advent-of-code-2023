@@ -16,4 +16,12 @@ mod tests {
         assert_eq!(extract_calibration_number("treb7uchet"), 77);
         assert_eq!(extract_calibration_number("l1ne"), 11);
     }
+
+    #[test]
+    fn digits_can_be_spelled() {
+        assert_eq!(extract_calibration_number("two1nine"), 29);
+        assert_eq!(extract_calibration_number("eighttwothree"), 83);
+        assert_eq!(extract_calibration_number("abcone2threexyz"), 13);
+        assert_eq!(extract_calibration_number("zoneight234"), 14);
+    }
 }
