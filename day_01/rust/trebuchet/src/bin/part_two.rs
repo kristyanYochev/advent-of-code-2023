@@ -1,7 +1,36 @@
+use regex::Regex;
+
 fn main() {}
 
 fn extract_calibration_number(line: &str) -> u32 {
-    todo!();
+    let pattern = Regex::new(r"[0-9]|zero|one|two|three|four|five|six|seven|eight|nine").unwrap();
+
+    let mut digits = pattern.find_iter(line).map(|m| m.as_str());
+
+    fn digit_to_number(d: &str) -> u32 {
+        match d {
+            "zero" | "0" => 0,
+            "one" | "1" => 1,
+            "two" | "2" => 2,
+            "three" | "3" => 3,
+            "four" | "4" => 4,
+            "five" | "5" => 5,
+            "six" | "6" => 6,
+            "seven" | "7" => 7,
+            "eight" | "8" => 8,
+            "nine" | "9" => 9,
+            _ => panic!("not a digit"),
+        }
+    }
+
+    let first_digit = digits
+        .next()
+        .map(digit_to_number)
+        .expect("No digits in the line");
+
+    let last_digit = digits.last().map(digit_to_number).unwrap_or(first_digit);
+
+    first_digit * 10 + last_digit
 }
 
 #[cfg(test)]
