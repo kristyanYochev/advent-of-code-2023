@@ -1,6 +1,11 @@
 use regex::Regex;
 
-fn main() {}
+fn main() {
+    let puzzle_input = include_str!("puzzle_input.txt");
+    let total: u32 = puzzle_input.lines().map(extract_calibration_number).sum();
+
+    println!("The total is {}", total);
+}
 
 fn extract_calibration_number(line: &str) -> u32 {
     let pattern = Regex::new(r"[0-9]|zero|one|two|three|four|five|six|seven|eight|nine").unwrap();
